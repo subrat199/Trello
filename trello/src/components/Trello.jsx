@@ -10,7 +10,7 @@ function GradientBox() {
 <Box>
 <Box
       w="75%"
-      h="500px"
+      h="300px"
       m="auto"
       mt="10px"
       bgGradient="linear(to-b, #4083b7, #5ac5e5)"

@@ -1,10 +1,12 @@
 import React from 'react'
+import { useDrag } from 'react-dnd';
 import {Box,Text,Input,Button} from '@chakra-ui/react'
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getData } from '../redux/ProductReducer/action';
 const Resources = () => {
+  
   const [inputValue, setInputValue] = useState('');
   const [tableData, setTableData] = useState([]);
     const dispatch=useDispatch()
@@ -24,7 +26,10 @@ const Resources = () => {
       }
       console.log(inputValue)
   return (
-    <Box border="1px solid red" w="25%" h="auto" bg="white" borderRadius="10px">
+    
+<>
+
+<Box border="1px solid white" w="25%" h="auto" bg="white" borderRadius="10px">
         <Box w="auto" fontWeight="bold" textAlign="start">Resources</Box>
         
           { data ? data[0]?.cards?.map((da)=>{
@@ -43,6 +48,7 @@ const Resources = () => {
             </Box>
         
     </Box>
+</>
   )
 }
 

@@ -22,7 +22,7 @@ const Doing = () => {
       
     }
   return (
-    <Box border="1px solid red" w="25%" h="auto" bg="white" borderRadius="10px">
+    <Box border="1px solid white" w="25%" h="auto" bg="white" borderRadius="10px">
     <Box w="auto" fontWeight="bold" textAlign="start">Doing</Box>
     
     { data ? data[2]?.cards?.map((da)=>{
