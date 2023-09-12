@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getData } from '../redux/ProductReducer/action';
 const Resources = () => {
-    const [alldata,setData]=useState("")
-    const[val,setValue]=useState([])
+  const [inputValue, setInputValue] = useState('');
+  const [tableData, setTableData] = useState([]);
     const dispatch=useDispatch()
     const product=useSelector((state)=>state.ProductReducer.data)
     const data=product.columns
@@ -16,27 +16,29 @@ const Resources = () => {
        
       },[])
       const handleClick=()=>{
-        console.log(val)
-        setValue({...val})
+        if (inputValue.trim() !== '') {
+          setTableData([...tableData, inputValue]);
+          setInputValue(''); // Clear the input box
+        }
         
       }
-      console.log(val)
+      console.log(inputValue)
   return (
     <Box border="1px solid red" w="25%" h="auto" bg="white" borderRadius="10px">
         <Box w="auto" fontWeight="bold" textAlign="start">Resources</Box>
         
-          {  data[0].cards.map((data)=>{
-          return (<Box  border="1px solid grey" borderRadius="10px" mt="5px">
-                <Text>{data.title}</Text>
-                <Text>{data.description}</Text>
+          { data ? data[0]?.cards?.map((da)=>{
+          return (<Box  border="1px solid grey" borderRadius="10px" mt="5px" key={da.id}>
+                <Text>{da.title}</Text>
+                <Text>{da.description}</Text>
             </Box>)
-            })}
-           {/* { val.map((va)=>{
+            }) : null}
+           { tableData.map((va)=>{
               return (<Box>{va}</Box>)
-            })} */}
+            })}
             
             <Box display="flex" justifyContent="space-evenly">
-            <Input type="text" placeholder="Add here..." value={val} onChange={(e)=>setValue(e.target.value)} ></Input>
+            <Input type="text" placeholder="Add here..." value={inputValue} onChange={(e)=>setInputValue(e.target.value)} ></Input>
             <Button onClick={handleClick}>Add</Button>
             </Box>
         

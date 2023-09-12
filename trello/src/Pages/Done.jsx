@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux';
 import { getData } from '../redux/ProductReducer/action';
 
 const Done = () => {
-  const [alldata,setData]=useState("")
+  const [inputValue, setInputValue] = useState('');
+  const [tableData, setTableData] = useState([]);
   const dispatch=useDispatch()
   const product=useSelector((state)=>state.ProductReducer.data)
   const data=product.columns
@@ -13,21 +14,30 @@ const Done = () => {
   useEffect(()=>{
       dispatch(getData())
     },[])
+    const handleClick=()=>{
+      if (inputValue.trim() !== '') {
+        setTableData([...tableData, inputValue]);
+        setInputValue(''); // Clear the input box
+      }
+      
+    }
   return (
     <Box border="1px solid red" w="25%" h="auto" bg="white" borderRadius="10px">
     <Box w="auto" fontWeight="bold" textAlign="start">Done</Box>
     
-      {  data[3].cards.map((data)=>{
-      return (<Box  border="1px solid grey" borderRadius="10px" mt="5px">
-            <Text>{data.title}</Text>
-            <Text>{data.description}</Text>
-        </Box>)
-        })}
-        <Box display="flex" justifyContent="space-evenly">
-        <Input type="text" placeholder="Add here..." ></Input>
-        <Button>Add</Button>
-        </Box>
-    
+    { data ? data[3]?.cards?.map((da)=>{
+          return (<Box  border="1px solid grey" borderRadius="10px" mt="5px" key={da.id}>
+                <Text>{da.title}</Text>
+                <Text>{da.description}</Text>
+            </Box>)
+            }) : null}
+            { tableData.map((va)=>{
+              return (<Box>{va}</Box>)
+            })}
+         <Box display="flex" justifyContent="space-evenly">
+            <Input type="text" placeholder="Add here..." value={inputValue} onChange={(e)=>setInputValue(e.target.value)} ></Input>
+            <Button onClick={handleClick}>Add</Button>
+            </Box>
 </Box>
   )
 }
